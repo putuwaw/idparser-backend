@@ -15,7 +15,13 @@ def configure_routes(app):
     def test():
         requestString = request.get_json()
         temp = requestString['string']
+        graph = modules.draw_graph()
         if (modules.is_palindrome(temp)):
-            return jsonify({'result': 'String palindrome'})
+            return jsonify({
+                'result': 'String palindrome', 
+                'graph': graph.source,
+            })
         else:
-            return jsonify({'result': 'String tidak palindrome'})
+            return jsonify({
+                'result': 'String tidak palindrome'
+            })
