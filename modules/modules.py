@@ -1,3 +1,5 @@
+import graphviz
+
 def hello():
     return "Hello, World!"
 
@@ -13,3 +15,10 @@ def is_palindrome(string):
         return True
     else:
         return False
+
+def draw_graph():
+    g = graphviz.Digraph('G')
+    g.edge('Hello', 'World')
+    g.edge('Hello', 'Halo')
+    g.edge('World', 'Dunia')
+    return g
