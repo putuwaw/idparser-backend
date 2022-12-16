@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_cors import cross_origin
-from modules import modules
+from modules import modules, cyk
 import os
 
 def configure_routes(app):
@@ -25,4 +25,19 @@ def configure_routes(app):
         else:
             return jsonify({
                 'result': 'String tidak palindrome'
+            })
+
+    @app.route("/parser", methods=['POST'])
+    @cross_origin(origins=os.environ.get("CLIENT_URL"))
+    def parser():
+        requestString = request.get_json()
+        string = requestString['string']
+        result = cyk.is_accepted(string)
+        if (result):
+            return jsonify({
+                'result': 'valid'
+            })
+        else:
+            return jsonify({
+                'result': 'tidak valid'
             })
