@@ -1,6 +1,7 @@
 from flask import request, jsonify
 from flask_cors import cross_origin
 from modules import modules
+import os
 
 def configure_routes(app):
     @app.route("/")
@@ -11,7 +12,7 @@ def configure_routes(app):
         return jsonify({"hello": hello, "content": content})
 
     @app.route("/test", methods=['POST'])
-    @cross_origin()
+    @cross_origin(origins=os.environ.get("CLIENT_URL"))
     def test():
         requestString = request.get_json()
         temp = requestString['string']
