@@ -1,0 +1,24 @@
+K -> S P Ket
+K -> S P
+K -> S P Pel Ket
+K -> S P O Ket
+K -> S P O
+S -> NP
+P -> PP | VP | AdjP
+O -> NP
+Pel -> NP
+Ket -> PP | NP | PP Ket
+NP -> PropNoun | Pronoun | Noun | NumP NP | Noun NP | NP NumP | AdjP NP | NP Prep | NP AdjP
+VP -> Verb | VP NP | AdjP VP | AdvP VP | Verb VP | VP AdjP
+PP -> Prep NP | Prep VP | Prep PP | Prep AdjP
+AdjP -> Adj | AdvP AdjP
+AdvP -> Adv | Adv AdvP
+NumP -> Num
+PropNoun -> Kevin | Bali | Manado | Albert | Yoga | Desi | Yudi | Jakarta | Abdi | Ata | Jalan Jimbaran | Denpasar | Bintang | Putu | Ronaldo | Widya | Wulan | Made | Puncak Bogor | Kota Yogyakarta
+Verb -> mencari | berjumpa | dilakukan | mengucapkan | menjadi | mempersilakan | masuk | mengurung | tutup | dipukul | diliburkan | dimainkan | bernyanyi | belajar | disebabkan | menyiram | tinggal | berjalan | ditemukan | menabung | menarik | memikat | pergi | memiliki | berlatih | menonton | mengunjungi | pulang | bermain | menendang | keluar | bekerja | berterimakasih | membahas | memberikan | dilatih
+Prep -> ke | demi | pada | hingga | atas | di | dari | ke | untuk | kepada | para | oleh | karena | dengan | dalam | seperti | sampai | berkat | terhadap | tentang | bagi
+Noun -> ilmu | hari | nanti | proses | pencarian | korban | saat | terima kasih | perhatian | teman-teman | dosen | kampus | kakeknya | kampus | kemarin | juara | kelas | kalinya | diri | kamar | motor | toko | sepatu | sementara | waktu | bapak | temannya | sekolah | wabah | penyakit | game | orang | sepanjang | perjalanan | masa | depan | ayah | luar | kota | musibah | banjir | hal | bunga | kebun | guru | kaki | rumah | sepeda | samping | danau | hari | wanita | laki-laki | bank | suasana | kampung | pertunjukkan | perhatian | orang-orang | sekitar | tempat | senyuman | hati | sikap | pertandingan | sepak bola | museum | negara | kantor | anak-anak | kali | bola | lapangan | orang tua | anak-anaknya | petang | jutawan | orang tuanya | rasa | cicak | pahlawan | masa lalunya | perusahaan | bonus | karyawan | makanan | kantin | cerita | drama | kebun | teh | daerah | toko-toko | buku
+Adv -> masih | akan | sangat | sudah | pernah | sungguh-sungguh | belum | sedang | harus | jarang
+Adj -> pasti | serius | dini | sepi | baik | keras | takut | enak | menarik | ramah | indah | lengkap
+Pronoun -> kita | ini | kami | itu | mereka | dia | saya
+Num -> suatu | semua | pertama | semua | ribuan | banyak | setiap
