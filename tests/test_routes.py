@@ -1,4 +1,6 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
+from flask_cors import cross_origin
+from modules import modules
 from handlers.routes import configure_routes
 
 def test_index():
@@ -12,7 +14,21 @@ def test_index():
 def test_api():
     app = Flask(__name__)
     with app.app_context():
-        configure_routes(app)
+        @app.route("/test", methods=['POST'])
+        @cross_origin()
+        def test():
+            requestString = request.get_json()
+            temp = requestString['string']
+            graph = modules.draw_graph()
+            if (modules.is_palindrome(temp)):
+                return jsonify({
+                    'result': 'String palindrome', 
+                    'graph': graph.source,
+                })
+            else:
+                return jsonify({
+                    'result': 'String tidak palindrome'
+                })
         app.testing = True
         client = app.test_client()
         response = client.post('/test', json={'string': 'katak'})
