@@ -70,3 +70,56 @@ def get_set_of_production():
     for key, value in tempDict.items():
         RESULT[key] = [value]
     return RESULT
+
+def get_raw_set_of_production():
+    global RESULT
+    RESULT.clear()
+    f = open("./set_of_production.txt", "r", encoding="utf-8")
+    for lines in f:
+        line = lines.splitlines()
+        line = line[0].split(" -> ")
+        lhs = line[0]
+        rhs = line[1].split(" | ")
+        if lhs in RESULT.keys():
+            RESULT[lhs].extend(rhs)
+        else:
+            RESULT[lhs] = rhs
+    f.close()
+    for key, value in RESULT.items():
+        if key == "PropNoun":
+            tempList = []
+            for val in value:
+                if val not in tempList:
+                    tempList.append(val.lower())
+            RESULT[key] = tempList
+    tempList = []
+    tempDict = {}
+    counter = 1
+    for key, value in RESULT.items():
+        if key == "K":
+            for val in value:
+                if len(val.split(" ")) > 2:
+                    temp = val.split(" ")
+                    while len(temp) > 2:
+                        checkStr = temp[0] + " " + temp[1]
+                        isFound = False
+                        for k, v in tempDict.items():
+                            if checkStr == v:
+                                isFound = True
+                                temp.pop(0)
+                                temp.pop(0)
+                                temp.insert(0, k)
+                                break
+                        if not isFound:
+                            tempDict["K" + str(counter)] = checkStr
+                            temp.pop(0)
+                            temp.pop(0)
+                            temp.insert(0, "K" + str(counter))
+                            counter += 1
+                    tempList.append(" ".join(temp))
+                else:
+                    tempList.append(val)
+            RESULT[key] = tempList
+    for key, value in tempDict.items():
+        RESULT[key] = [value]
+    return RESULT
