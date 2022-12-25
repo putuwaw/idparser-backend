@@ -66,7 +66,6 @@ def is_parent(posX, posY, limit, check, prodRules):
             return [False, None, None]
     return [False, None, None]
 
-
 def search_left(listVar, checkPos, curPost, posX, posY, limit, prodRules):
     global PARSE_TREE
     global PREV_NODE
@@ -164,3 +163,19 @@ def get_parse_tree(inputString):
         return PARSE_TREE
     else:
         return None
+
+def get_table_element(inputString):
+    global TRIANGULAR_TABLE
+    result = []
+    n = len(inputString.split(" "))
+    for i in range(1, n+1):
+        temp = []
+        for j in range(i):
+            res = TRIANGULAR_TABLE[(j+1, n-i+j+1)]
+            if len(res) == 0:
+                temp.append("\u2205")
+            else:
+                temp.append(", ".join(res))
+        result.append(temp)
+    result.append(inputString.split(" "))
+    return result
