@@ -34,13 +34,16 @@ def configure_routes(app):
         string = requestString['string']
         result = cyk.is_accepted(string)
         tree = cyk.get_parse_tree(string)
+        table = cyk.get_table_element(string)
         if (result):
             return jsonify({
                 'result': True,
-                'graph': tree.source
+                'graph': tree.source,
+                'table': table
             })
         else:
             return jsonify({
                 'result': False,
-                'graph': None
+                'graph': None,
+                'table': table
             })
