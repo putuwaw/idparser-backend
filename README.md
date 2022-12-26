@@ -42,8 +42,8 @@ idParser-Backend is created using:
 ```
 idparser-backend
 ├── .github
-├── handlers
 ├── docs
+├── handlers
 ├── modules
 ├── tests
 ├── .gitignore
@@ -55,8 +55,8 @@ idparser-backend
 └── vercel.json
 ```
 - [.github](.github/) is a folder that used to place Github related stuff, like CI pipeline.
-- [handlers](handlers/) contain handler to handling HTTP request methods.
 - [docs](docs/) contain documentation of this app.
+- [handlers](handlers/) contain handler to handling HTTP request methods.
 - [modules](modules/) contain the main modules of the app.
 - [tests](tests/) contain unit test of the app.
 - [.gitignore](.gitignore) is a file to exclude some folders like venv.
@@ -66,6 +66,9 @@ idparser-backend
 - [requirements.txt](requirements.txt) is a file that contains a list of dependencies used in this app.
 - [set_of_production.txt](set_of_production.txt) is a file that contains set of production of the grammar.
 - [vercel.json](vercel.json) is a file that contains configuration and override the default behavior of Vercel.
+
+## Requirements 📦
+- Python 3.10 or later
 
 ## Installation 🛠️
 - Clone the repository:
@@ -92,3 +95,14 @@ python app.py
 ```
 pytest
 ```
+
+## Contributors ✨
+<br>
+<table align="center">
+  <tr>
+    <td align="center"><a href="https://github.com/putuwaw"><img src="https://avatars.githubusercontent.com/u/90038606?v=4" width="150px;" alt=""/><br><sub><b>Putu Widyantara</b></sub></td> 
+    <td align="center"><a href="https://github.com/KEVINMOSESWALELENG"><img src="https://avatars.githubusercontent.com/u/103045275?v=4" width="150px;" alt=""/><br><sub><b>Kevin Moses</b></sub></td> 
+    <td align="center"><a href="https://github.com/Antoniusata"><img src="https://avatars.githubusercontent.com/u/103051993?v=4" width="150px;" alt=""/><br><sub><b>Antonius Ata</b></sub></td>
+    <td align="center"><a href="https://github.com/YogaLaksana"><img src="https://avatars.githubusercontent.com/u/103047470?v=4" width="150px;" alt=""/><br><sub><b>Yoga Laksana</b></sub></td>
+  </tr>
+</table>
