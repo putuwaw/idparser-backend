@@ -175,7 +175,7 @@ def get_table_element(inputString):
             if len(res) == 0:
                 temp.append("\u2205")
             else:
-                temp.append(", ".join(res))
+                temp.append("{" + ", ".join(res) + "}")
         result.append(temp)
     result.append(inputString.split(" "))
     return result
