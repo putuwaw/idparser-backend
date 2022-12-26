@@ -43,6 +43,7 @@ idParser-Backend is created using:
 idparser-backend
 ├── .github
 ├── handlers
+├── docs
 ├── modules
 ├── tests
 ├── .gitignore
@@ -55,6 +56,7 @@ idparser-backend
 ```
 - [.github](.github/) is a folder that used to place Github related stuff, like CI pipeline.
 - [handlers](handlers/) contain handler to handling HTTP request methods.
+- [docs](docs/) contain documentation of this app.
 - [modules](modules/) contain the main modules of the app.
 - [tests](tests/) contain unit test of the app.
 - [.gitignore](.gitignore) is a file to exclude some folders like venv.
