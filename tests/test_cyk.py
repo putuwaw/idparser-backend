@@ -1,56 +1,277 @@
+import pytest
 from modules.cyk import is_accepted
 
-def test_is_accepted():
-    assert is_accepted("Saya sedang belajar di kampus") == True
-    # assert is_accepted("Kevin ke Bali demi mencari ilmu") == True
-    # assert is_accepted("Kita pasti berjumpa pada suatu hari nanti") == True
-    # assert is_accepted("Proses pencarian korban masih dilakukan hingga saat ini") == True
-    # assert is_accepted("Kami mengucapkan terima kasih atas perhatian tema-teman semua") == True
-    # assert is_accepted("Dosen itu di kampus") == True
-    # assert is_accepted("Kakeknya dari Manado") == True
-    # assert is_accepted("Mereka ke kampus kemarin") == True
-    # assert is_accepted("Albert menjadi juara kelas untuk pertama kalinya") == True
-    # assert is_accepted("Kami mempersilakan masuk kepada para dosen semua") == True
-    # assert is_accepted("Yoga mengurung diri di kamar") == True
-    # assert is_accepted("Motor itu untuk Desi") == True
-    # assert is_accepted("Toko sepatu ini tutup untuk sementara waktu") == True
-    # assert is_accepted("Bapak Yudi dari Jakarta") == True
-    # assert is_accepted("Abdi dipukul oleh temannya") == True
-    # assert is_accepted("Sekolah diliburkan karena wabah penyakit") == True
-    # assert is_accepted("Game itu dimainkan oleh ribuan orang") == True
-    # assert is_accepted("Kami akan bernyanyi sepanjang perjalanan") == True
-    # assert is_accepted("Dia belajar dengan serius demi masa depan") == True
-    # assert is_accepted("Ayah dalam perjalanan ke luar kota") == True
-    # assert is_accepted("Musibah banjir ini disebabkan oleh banyak hal") == True
-    # assert is_accepted("Saya akan menyiram bunga di kebun") == True
-    # assert is_accepted("Bapak Guru Ata tinggal di Jalan Jimbaran") == True
-    # assert is_accepted("Ata berjalan kaki dari rumah ke kampus") == True
-    # assert is_accepted("Sepeda itu ditemukan di samping danau pada dini hari") == True
-    # assert is_accepted("Wanita itu berjalan seperti laki-laki") == True
-    # assert is_accepted("Ayah menabung di bank") == True
-    # assert is_accepted("Suasana di kampung itu sangat sepi") == True
-    # assert is_accepted("Pertunjukan mereka menarik perhatian orang-orang di sekitar tempat ini") == True
-    # assert is_accepted("Senyuman wanita itu sangat memikat hati") == True
-    # assert is_accepted("Ata sudah pernah pergi ke Denpasar") == True
-    # assert is_accepted("Bintang memiliki sikap sangat baik") == True
-    # assert is_accepted("Mereka berlatih dengan sungguh-sungguh setiap hari") == True
-    # assert is_accepted("Mereka menonton pertandingan sepak bola hingga dini hari") == True
-    # assert is_accepted("Ata belum pernah mengunjungi museum negara") == True
-    # assert is_accepted("Putu pergi ke kampus") == True
-    # assert is_accepted("Ayah sudah pulang dari kantor") == True
-    # assert is_accepted("Anak-anak sedang bermain di kali") == True
-    # assert is_accepted("Ronaldo menendang bola hingga keluar dari lapangan") == True
-    # assert is_accepted("Orang tua bekerja keras demi anak-anaknya") == True
-    # assert is_accepted("Mereka bermain bola sampai petang") == True
-    # assert is_accepted("Widya menjadi jutawan berkat orang tuanya") == True
-    # assert is_accepted("Wulan memiliki rasa takut terhadap cicak") == True
-    # assert is_accepted("Kita harus berterimakasih kepada para pahlawan") == True
-    # assert is_accepted("Made jarang membahas tentang masa lalunya") == True
-    # assert is_accepted("Perusahaan memberikan bonus bagi semua karyawan") == True
-    # assert is_accepted("Dia dilatih dengan sangat keras oleh guru kami") == True
-    # assert is_accepted("Makanan di kantin itu sangat enak") == True
-    # assert is_accepted("Cerita pada pertunjukan drama itu sangat menarik") == True
-    # assert is_accepted("Barang-barang di toko online itu sangat murah") == True
-    # assert is_accepted("Teman-teman saya di kampung sangat ramah") == True
-    # assert is_accepted("Kebun teh di daerah Puncak Bogor sangat indah") == True
-    # assert is_accepted("Toko-toko buku di Kota Yogyakarta sangat lengkap") == True
+DATASET_GROUP_1 = [ 
+    ("Saya sedang belajar di kampus", True),
+    ("Mereka akan pergi ke sekolah", True),
+    ("Saya berterima-kasih atas bantuan keluarga anda", True),
+    ("Latihan soft skill sangat penting bagi semua orang", True),
+    ("Bu Irma sedang mencatat pengeluaran dalam bulan ini", True),
+    ("Ia baru saja datang dari sekolah", True),
+    ("Ia bekerja keras demi anak", True),
+    ("Ana sudah pergi ke kampus", True),
+    ("Anda tidak boleh merokok di ruangan ini", True),
+    ("Catatan tersebut belum ditemukan hingga saat ini", True),
+    ("Ayah pergi ke kantor tadi pagi", True),
+    ("Anda boleh menyentuh semua barang", True),
+    ("Tugas ini dibuat oleh kelompok satu", True),
+    ("Ayah berangkat pada hari sabtu lalu", True),
+    ("Dia menangis sampai tersedu-sedu", True),
+    ("Orang itu sudah mandiri sejak kecil", True),
+    ("Dia paham sekali tentang hal-hal politik", True),
+    ("Mereka pergi untuk mencari kerja", True),
+    ("Anto pergi ke sekolah bersama kakak saya", True),
+    ("Mereka akan berkunjung beserta keponakan saya", True),
+    ("Budi berlari menuju lapangan basket sekolah", True),
+    ("Mereka sedang berada di Amerika", True),
+    ("Anak tentu harus bersikap hormat terhadap orang tuanya", True),
+    ("Kecantikan anak itu bagaikan seorang bidadari", True),
+    ("Foto tersebut sudah saya kirim melalui email", True),
+    ("Kakak saya berbicara mengenai kekurangan aplikasi ini", True),
+    ("Baju baru saya itu di dalam lemari", True),
+    ("Adik kecil saya meletakkan piring itu di atas meja", True),
+    ("Dia sering pergi ke atas bukit", True),
+    ("Kucing itu sering meloncat dari atas mobil", True),
+    ("Mereka tinggal di dekat pabrik", True),
+    ("Gadis itu sedang mengintip jejaka dari balik jendela", True),
+    ("Kami masuk dari belakang", True),
+    ("Mereka duduk di luar rumah", True),
+    ("Aktris itu bersiap-siap di balik layar", True),
+    ("la tidak masuk oleh karena penyakit", True),
+    ("Tanaman itu hampir mati oleh sebab kekeringan", True),
+    ("Nyoman sedang mengerjakan soal nomor lima belas", True),
+    ("Kami selalu berjalan sampai ke bukit itu", True),
+    ("Ia juga terpilih selain dari kakak saya", True),
+    ("Mereka sudah pindah dari Bandung", True),
+    ("Ia sudah ikut dengan nenek saya sejak tahun lalu", True),
+    ("Saya tidak bertemu dengan beliau sejak rapat itu ", True),
+    ("Kami belum memiliki rumah sendiri sejak awal pernikahan", True)
+]
+
+DATASET_GROUP_2 = [
+    ("Aku sudah memutuskan pindah ke LA", True),
+    ("Dokter Cahya sedang bekerja di Rumah Sakit Bali Mandara", True),
+    ("Kakak saya sudah sampai di bandara Ngurah Rai Bali", True),
+    ("Aku baru saja pulang dari kantor", True),
+    ("Bus itu selalu membawa penumpang dari Jimbaran", True),
+    ("Paket itu masih berada di rumah saya", True),
+    ("Aokigahara merupakan hutan terkenal di Jepang", True),
+    ("Saya berharap tidak akan berakhir di tempat itu", True),
+    ("Rumahnya terletak pada sisi bukit", True),
+    ("Saya menginap beberapa hari di rumah kakak ipar", True),
+    ("Dia selalu pergi bermain ke komplek sebelah", True),
+    ("Ryujin sudah mengambil paket itu dari kantor", True),
+    ("Mobilitas penduduk lebih mudah di dataran rendah", True),
+    ("Paus itu terjebak di hutan bakau", True),
+    ("Selokan itu harus dibersihkan secara rutin guna mencegah bencana banjir", True),
+    ("Saya selalu bangun lebih pagi pada hari Senin", True),
+    ("Koding bukan hal asing bagi mahasiswa jurusan informatika", True),
+    ("Keahlian tersebut masih terasa sulit bagi seorang pemula", True),
+    ("Produsen harus memilih bahan-bahan dengan kualitas tinggi untuk meningkatkan mutu produk", True),
+    ("Bagi mahasiswa Universitas Udayana mengatasi rasa malas adalah sebuah keharusan", True),
+    ("Peringatan larangan bunuh diri sengaja banyak diletakkan di sekitar hutan", True),
+    ("Kemampuan berbahasa Inggris merupakan sebuah keharusan", True),
+    ("Fitur mode hemat daya digunakan untuk menghemat daya baterai", True),
+    ("Tepung terigu sering diperlukan untuk membuat adonan kue", True),
+    ("Persatuan senantiasa harus dijaga guna menghindari perpecahan", True),
+    ("Kita harus bekerja sama agar tercapai tujuan kita", True),
+    ("Jalan itu sengaja ditutup untuk mempercepat perbaikan jalan", True),
+    ("Adik ke toilet karena sakit perut", True),
+    ("Anna terluka karena jatuh dari motor", True),
+    ("Budi pura-pura sakit karena malas pergi ke sekolah", True),
+    ("Andi dimarahi ibu karena pulang larut malam", True),
+    ("Dia makan karena lapar", True),
+    ("Burhan masuk penjara sebab melanggar hukum", True),
+    ("Kita harus mengurangi bepergian ke tempat yang ramai untuk mencegah penularan virus penyakit", True),
+    ("Warga sudah mengikuti simulasi bencana alam sehingga tidak panik", True),
+    ("Wayan sakit maag kronis karena jarang sarapan pagi", True),
+    ("Jalanan ini sedang diperbaiki sehingga macet", True),
+    ("Masyarakat Desa Penglipuran selalu menjaga kebersihan lingkungan sehingga mendapatkan penghargaan desa terbersih di Bali", True),
+    ("Tanaman ini tumbuh subur karena selalu dirawat dengan baik", True),
+    ("Pelajaran olahraga dilakukan di dalam ruangan karena hari ini hujan", True),
+    ("Ibu sedang pergi ke pasar dengan adik", True),
+    ("Kijang itu selalu berlari dengan lincah", True),
+    ("Pemimpin upacara itu berteriak dengan lantang", True),
+    ("Ia sedang bernyanyi sambil memainkan gitar", True),
+    ("Semua warga sedang bekerja bakti dengan semangat", True),
+    ("Kami sedang menikmati udara pagi sambil berolahraga", True),
+    ("Si kancil sering mencuri timun Pak tani dengan cerdik", True),
+    ("Saya selalu menikmati tinggal bersama keluarga saya", True),
+    ("Dia ikut bermain-main bersama anak-anak itu", True),
+    ("Saya tertarik dengan arkeologi", True),
+    ("Adik saya sedang minum satu tablet dengan segelas air", True),
+    ("Pintu itu digedornya berulang kali sambil terus berteriak", True),
+    ("Pertandingan masih berjalan dengan seru", True),
+    ("Bu Indah berangkat bersama rekan saya ke rektorat", True),
+    ("Kita dituntut untuk bisa kuliah sambil bekerja", True),
+    ("Kue ulang tahun itu sengaja dipesan untuk adik saya", True),
+    ("Motor itu jarang dicuci sehingga sangat kotor", True)
+]
+
+DATASET_GROUP_3 = [
+    ("Baju bapak itu tidak disetrika oleh ibu kami", True),
+    ("Ayam kakak saya sedang dimasak oleh ibu Ani", True),
+    ("Pintu itu baru saja dibuka oleh ibu guru olah-raga saya", True),
+    ("Meja belajar adik saya itu sedang dipasang oleh pak tukang kayu", True),
+    ("Aku bisa mengendarai sepeda karena diajarkan oleh bapak", True),
+    ("Mobil ayah itu sedang didorong oleh paman karena mogok", True),
+    ("Dia sedang dimarahi oleh guru karena membangkang", True),
+    ("Bayi malang itu sudah dibuang oleh seorang penculik di sungai", True),
+    ("Sampah itu sedang dibersihkan oleh bapak saya", True),
+    ("Tanaman itu selalu disiram oleh kakak saya", True),
+    ("Pohon pinus itu ditanam oleh relawan pencinta alam", True),
+    ("Lukisan mona lisa dilukis oleh Leonardo da Vinci", True),
+    ("Rambut kakak sedang ditarik oleh adik bayi saya", True),
+    ("Gelas di dapur sudah dipecahkan oleh adik saya", True),
+    ("Pencuri perhiasan itu sudah ditangkap oleh pak polisi", True),
+    ("Pak Mamat sudah tinggal di Lombok sejak dua tahun yang lalu", True),
+    ("Ayah selalu pergi ke kota pada hari minggu", True),
+    ("Dian sering makan bubur ayam sejak tahun 2002", True),
+    ("Putu makan sayur-sayuran semenjak terkena sembelit ", True),
+    ("Dia sudah berada di rumah sejak minggu lalu", True),
+    ("Rido sedang mempersiapkan upacara penyambutan menjelang kedatangan ayah", True),
+    ("Jovan sudah menyangkul tanah dari pagi tadi", True),
+    ("Dhimmas bekerja memotong ayam dari hari Senin kemarin", True),
+    ("Gita sudah pulang dari negara Malaysia", True),
+    ("Ketut selalu berbelanja pada hari Minggu", True),
+    ("Susan belum mempunyai mobil sampai saat ini", True),
+    ("Adi mulai mengerjakan tugas bahasa Indonesia sejak pagi tadi", True),
+    ("Ia sudah melukis sejak masih kecil", True),
+    ("Via memotong kayu pada pagi hari", True),
+    ("Ayah sudah tidak tinggal di sini lagi semenjak bercerai dengan ibu", True),
+    ("Polisi sedang membahas tentang kasus pencurian itu", True),
+    ("Intan suka berbicara mengenai konser idolanya", True),
+    ("Mereka sering berdebat mengenai posisi tidur", True),
+    ("Pak Edi menghadiri rapat mengenai perbaikan kurikulum", True),
+    ("Kami selalu teringat tentang penagihan utang itu", True),
+    ("Jeni senang bergurau mengenai penampilan Beni di panggung", True),
+    ("Rekan kami sudah menjawab tentang pertanyaan tersebut", True),
+    ("Masyarakat selalu mempertanyakan tentang perbaikan jalan itu ke pemerintah", True),
+    ("Mereka berdiskusi mengenai presentasi minggu depan", True),
+    ("Adi telah mengetahui tentang sifat-sifat buruk temannya", True),
+    ("Pak Arif sedang menjelaskan mengenai sejarah Perang Dunia II", True),
+    ("Orang itu senang bercerita mengenai kisah hidupnya", True),
+    ("Masyarakat setempat telah menyetujui tentang penutupan jalan tersebut ", True),
+    ("Santan ini terbuat dari daging kelapa", True),
+    ("Widia berasal dari Desa Daup Kintamani", True),
+    ("Jamu itu dibuat dari rempah-rempah pilihan", True),
+    ("Gelas cantik itu terbuat dari keramik", True),
+    ("Sasando merupakan alat musik  dari Nusa Tenggara Timur", True),
+    ("Sumping adalah makanan ringan dari tepung beras", True),
+    ("Babi Guling adalah makanan khas dari daerah Bali", True),
+    ("Rendang merupakan makanan terkenal dari Sumatera Barat", True),
+    ("Genggong adalah alat musik dari Sumatera Selatan", True),
+    ("Gitar Akustik itu terbuat dari kayu pohon mapel", True),
+    ("Alit adalah teman lama kami dari Tampak Siring Gianyar", True),
+    ("Kopi hitam itu berasal dari Gayo", True),
+    ("Tas Louis Vuitton itu terbuat dari awetan kulit buaya", True),
+    ("Jaket Taksa dibuat dari rajutan bulu domba", True)
+]
+
+DATASET_GROUP_4 = [
+    ("Bapak guru berangkat ke sekolah", True),
+    ("Rin belum berangkat dari rumah kakaknya", True),
+    ("Minyak tidak bisa bercampur dengan air", True),
+    ("Andi jarang bercerita tentang kisah hidupnya", True),
+    ("Para pemimpin negara berdiskusi tentang ekonomi dunia", True),
+    ("Anti sangat sering bergantung pada orang lain", True),
+    ("Timnas Indonesia sudah beberapa kali berhadapan dengan timnas Malaysia", True),
+    ("Budi berkhotbah tentang kehidupan", True),
+    ("Perkataan Claudia berlawanan dengan sejarah yang ada", True),
+    ("Elon Musk bertemu dengan rekan bisnisnya", True),
+    ("Wisnu sering datang ke Kerobokan", True),
+    ("Aulia siap berhadapan dengan Ujian Akhir Semester", True),
+    ("Adi keluar dari ruang rapat", True),
+    ("Amel sangat menyesal atas tindakannya", True),
+    ("Program pemberdayaan ekonomi masyarakat harus sejalan dengan otonomi daerah", True),
+    ("Kursi merah disusun sejajar dengan meja", True),
+    ("Capybara tidak serupa dengan tikus", True),
+    ("Laporan itu sudah sesuai dengan ketentuan", True),
+    ("Lembaga itu tidak setingkat dengan lembaga negara lainnya", True),
+    ("Amerika serikat terbagi atas 52 negara bagian", True),
+    ("Vas bunga itu terbuat dari tanah liat", True),
+    ("Mata kuliah ini terdiri atas empat modul", True),
+    ("Orang itu sering masuk ke kamar", True),
+    ("Garry selalu mengeluh tentang nasib hidup", True),
+    ("Pendidikan tergolong dalam kebutuhan dasar seorang anak", True),
+    ("Hal ini membuatku teringat akan masa lalu yang kita lewati", True),
+    ("Aku teringat pada kucingku yang meninggal", True),
+    ("Badai hujan itu sudah terjadi dari pekan lalu", True),
+    ("Aku masih terkenang akan janji manismu", True),
+    ("Kevin membuatnya terkenang pada masa lalunya", True)
+]
+
+DATASET_GROUP_5 = [
+    ("Kevin ke Bali demi mencari ilmu", True),
+    ("Kita pasti berjumpa pada suatu hari nanti", True),
+    ("Proses pencarian korban masih dilakukan hingga saat ini", True),
+    ("Kami mengucapkan terima kasih atas perhatian teman-teman semua", True),
+    ("Dosen itu di kampus", True),
+    ("Kakeknya dari Manado", True),
+    ("Mereka ke kampus kemarin", True),
+    ("Albert menjadi juara kelas untuk pertama kalinya", True),
+    ("Kami mempersilakan masuk kepada para dosen semua", True),
+    ("Yoga mengurung diri di kamar", True),
+    ("Motor itu untuk Desi", True),
+    ("Toko sepatu ini tutup untuk sementara waktu", True),
+    ("Bapak Yudi dari Jakarta", True),
+    ("Abdi dipukul oleh temannya", True),
+    ("Sekolah diliburkan karena wabah penyakit", True),
+    ("Game itu dimainkan oleh ribuan orang", True),
+    ("Kami akan bernyanyi sepanjang perjalanan", True),
+    ("Dia belajar dengan serius demi masa depan", True),
+    ("Ayah dalam perjalanan ke luar kota", True),
+    ("Musibah banjir ini disebabkan oleh banyak hal", True),
+    ("Saya akan menyiram bunga di kebun", True),
+    ("Bapak Guru Ata tinggal di Jalan Jimbaran", True),
+    ("Ata berjalan kaki dari rumah ke kampus", True),
+    ("Sepeda itu ditemukan di samping danau pada dini hari", True),
+    ("Wanita itu berjalan seperti laki-laki", True),
+    ("Ayah menabung di bank", True),
+    ("Suasana di kampung itu sangat sepi", True),
+    ("Pertunjukan mereka menarik perhatian orang-orang di sekitar tempat ini", True),
+    ("Senyuman wanita itu sangat memikat hati", True),
+    ("Ata sudah pernah pergi ke Denpasar", True),
+    ("Bintang memiliki sikap sangat baik", True),
+    ("Mereka berlatih dengan sungguh-sungguh setiap hari", True),
+    ("Mereka menonton pertandingan sepak bola hingga dini hari", True),
+    ("Ata belum pernah mengunjungi museum negara", True),
+    ("Putu pergi ke kampus", True),
+    ("Ayah sudah pulang dari kantor", True),
+    ("Anak-anak sedang bermain di kali", True),
+    ("Ronaldo menendang bola hingga keluar dari lapangan", True),
+    ("Orang tua bekerja keras demi anak-anaknya", True),
+    ("Mereka bermain bola sampai petang", True),
+    ("Widya menjadi jutawan berkat orang tuanya", True),
+    ("Wulan memiliki rasa takut terhadap cicak", True),
+    ("Kita harus berterimakasih kepada para pahlawan", True),
+    ("Made jarang membahas tentang masa lalunya", True),
+    ("Perusahaan memberikan bonus bagi semua karyawan", True),
+    ("Dia dilatih dengan sangat keras oleh guru kami", True),
+    ("Makanan di kantin itu sangat enak", True),
+    ("Cerita pada pertunjukan drama itu sangat menarik", True),
+    ("Barang-barang di toko online itu sangat murah", True),
+    ("Teman-teman saya di kampung sangat ramah", True),
+    ("Kebun teh di daerah Puncak Bogor sangat indah", True),
+    ("Toko-toko buku di Kota Yogyakarta sangat lengkap", True)
+]
+
+@pytest.mark.parametrize("string,expected", DATASET_GROUP_1)
+def test_eval_group_1(string, expected):
+    assert is_accepted(string) == expected
+
+@pytest.mark.parametrize("string,expected", DATASET_GROUP_2)
+def test_eval_group_2(string, expected):
+    assert is_accepted(string) == expected
+
+@pytest.mark.parametrize("string,expected", DATASET_GROUP_3)
+def test_eval_group_3(string, expected):
+    assert is_accepted(string) == expected
+
+@pytest.mark.parametrize("string,expected", DATASET_GROUP_4)
+def test_eval_group_4(string, expected):
+    assert is_accepted(string) == expected
+    
+@pytest.mark.parametrize("string,expected", DATASET_GROUP_5)
+def test_eval_group_5(string, expected):
+    assert is_accepted(string) == expected
